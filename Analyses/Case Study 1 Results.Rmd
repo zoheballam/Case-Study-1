@@ -1,0 +1,64 @@
+---
+title: "Case Study 1"
+author: "Zoheb Allam"
+date: "October 31, 2016"
+output: html_document
+---
+# R Code for Case Study 1
+
+##Introduction
+
+The following analyses were conducted to determine the relationship between GDP and income group. Gross domestic product (GDP) can be definised as the value of all the finished goods and services producted within a country's borders. Prior studies have examined the relationship between GDP and income and this study adds to the exisiting pool of knowledge.   
+
+##Methods
+
+The data used for this study was collected by the world bank and included information on over 200 countries. In order to test the relationships between GDP and income group, the data from the two seperate data files containing GDP and income group were merged and the relationships were tested using descriptive statistics as well as graphically plotting the relationship.The next section contains the code used to clean and analyze the data as well as an explanation of the findings. 
+
+##Results
+
+Results from this study are presented as answers to a series of questions designed to explore the data. 
+
+In order to run the code, set the working directory. My source codes were stored in the file path below. 
+```{r}
+setwd("C:/Users/laptop/Desktop/Case Study 1/Analyses")
+```
+
+To download the data into R, run the following code.  
+```{r}
+source("DownloadData.R", echo = TRUE, keep.source = TRUE, max.deparse.length = 500)  
+```
+
+To answer Question 1 of the case study I merged the data on the country shortcode. The code below merged the data and the string function was used to determine how many of the IDs match. In total 224 observations matched after dropping countries that did not match from the merged data file.  
+```{r}
+source("MergeData.R", echo = TRUE, keep.source = TRUE, max.deparse.length = 500)  
+```
+
+Once the data was merged, there was a few data cleaning steps that needed to take place. I counted the number of missing data points (N/A) in the data file, converted GDP into a numeric value, and log transformed it due to the skewed distribution. 
+```{r}
+source("CleanData.R", echo = TRUE, keep.source = TRUE, max.deparse.length = 500)  
+```
+
+To answer Question 2 I sorted the data frame by rankings and checked the rank of the country which appeared 13th on the list. However, there were two countries with the same rank (178). Since they had the same GDP and there were no other variables in the data file which could distinguish between the ranks, the 13th country in the data file could either be Grenada or St. Kitts and Nevis. The name of the country associated with that rank was called using the grep function.     
+```{r}
+source("Question2Code.R", echo = TRUE, keep.source = TRUE, max.deparse.length = 500)  
+```
+
+A table was created to examine the average GDP rankings for the "High income:OECD" and "High income:nonOECD". The average GDP ranking for the High income:OECD group is 33, while the average ranking for the High income:nonOECD group is 91.9.  
+```{r}
+source("Question3Code.R", echo = TRUE, keep.source = TRUE, max.deparse.length = 500)  
+```
+
+To visually explore the relationship between the GDP of the countries and the income group, a scatter plot was created using ggplot2. The log transformed GDP was used for easier interpretation of the plot. By examining the plot we can see that countries with low income and lower middle income overall had lower GDP compared to countries with high income. It should also be noted that the dark gray dots indicate countries with missing values for income group. 
+
+```{r}
+source("Question4Code.R", echo = TRUE, keep.source = TRUE, max.deparse.length = 500)  
+```
+
+Finally, the GDP rankings were cut into 5 seperate quantile groups and the gmodels package was used to create a crosstabs table with the frequency and percentage for the ranking groups by income group. Results indicated that 16 countries are among the 38 nations with the highest nations but are in the lower middle income group. 
+```{r}
+source("Question5Code.R", echo = TRUE, keep.source = TRUE, max.deparse.length = 500)  
+```
+
+
+##Discussion
+Overall the findings indicate that there is a relationship between GDP and income group. When looking at raw GDP countries with higher GDP seem to be associated with higher income groups. However, when examining the GDP rankings we see that countries who are ranked in the top 38 are represented more by countries with lower middle income. More studies will need to be conducted to further examine this relationship. 
